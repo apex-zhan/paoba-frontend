@@ -1,5 +1,8 @@
-<script setup lang="ts"></script>
-
-<template></template>
-
-<style scoped></style>
+<script setup lang="ts">
+import BasicLayout from "./layouts/BasicLayout.vue";
+</script>
+<template>
+  <BasicLayout />
+</template>
+<style>
+</style>

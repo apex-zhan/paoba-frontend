@@ -1,5 +1,10 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+import {createApp} from 'vue';
+import "./style.css";
+import {NavBar, Button} from "vant";
+import App from './App.vue';
 
-createApp(App).mount('#app')
+
+const app = createApp(App);
+app.use(NavBar);
+app.use(Button);
+createApp(App).mount('#app');

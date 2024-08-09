@@ -8,6 +8,7 @@ export default {
     vue(),
     AutoImport({
       resolvers: [VantResolver()],
+      imports: ["vue", "vue-router", "pinia"],
     }),
     Components({
       resolvers: [VantResolver()],
