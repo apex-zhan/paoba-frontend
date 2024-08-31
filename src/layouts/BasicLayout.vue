@@ -1,44 +1,39 @@
 <template>
-  <van-nav-bar title="标题" left-text="返回" left-arrow
-  @click-left="onChangeLeft"
-  @click-right="onChangeRight"
+  <van-nav-bar
+      title="泡吧"
+      left-text="返回"
+      left-arrow
+      @click-left="onChangeLeft"
+      @click-right="onChangeRight"
   >
     <template #right>
-      <van-icon name="search" size="18" />
+      <van-icon name="search" size="18"/>
     </template>
   </van-nav-bar>
-  <van-tabbar v-model="active" @onchange="onChange">
-    <van-tabbar-item icon="home-o" name="index">主页</van-tabbar-item>
-    <van-tabbar-item icon="friends-o" name="team">队伍</van-tabbar-item>
-    <van-tabbar-item icon="setting-o" name="user">个人</van-tabbar-item>
-  </van-tabbar>
-
   <div id="content">
-    <template v-if="active === 'index'">
-      主页
-    <index />
-    </template>
-    <template v-if="active === 'team'">
-      队伍页
-    <team />
-    </template>
-    <template v-if="active === 'user'">
-      个人页
-    <user />
-    </template>
+    <router-view></router-view>
   </div>
 
-
+  <van-tabbar route @change="onChange">
+    <van-tabbar-item to="/" icon="home-o" name="index">主页</van-tabbar-item>
+    <van-tabbar-item to="/team" icon="friends-o" name="team"
+    >队伍
+    </van-tabbar-item
+    >
+    <van-tabbar-item to="/user" icon="setting-o" name="user"
+    >个人
+    </van-tabbar-item
+    >
+  </van-tabbar>
 </template>
 <script lang="ts" setup>
-import { showToast } from "vant";
-import { ref } from "vue";
- const onChangeLeft = () => alert("返回");
- const onChangeRight = () => alert("搜索");
+import {ref} from "vue";
+import {showToast} from "vant";
+import {useRouter} from "vue-router";
 
-const active = ref("index");
-const onChange = (index : string) => showToast(`标签 ${index}`);
-    
-  
+const router = useRouter();
+const onChangeLeft = () => router.back();
+const onChangeRight = () => router.push("/search");
+const onChange = (index: string) => showToast(`标签 ${index}`);
 </script>
 <style></style>

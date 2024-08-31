@@ -1,10 +1,11 @@
-import {createApp} from 'vue';
+import {createApp} from "vue";
 import "./style.css";
-import {NavBar, Button} from "vant";
-import App from './App.vue';
-
+import App from "./App.vue";
+import Vant from 'vant';
+import 'vant/lib/index.css';
+import router from "./router/router";
 
 const app = createApp(App);
-app.use(NavBar);
-app.use(Button);
-createApp(App).mount('#app');
+app.use(Vant);
+app.use(router);
+app.mount("#app");
