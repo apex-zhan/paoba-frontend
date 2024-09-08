@@ -12,21 +12,26 @@
   <van-row v-if="activeIds.length === 0 ">请选择标签</van-row>
   <van-row gutter="16">
     <van-col v-for="tag in activeIds">
-      <van-tag closeable size="small" type="primary" @close=doclose(tag)>
+      <van-tag closeable size="normal" type="primary" @close=doclose(tag)>
         {{ tag }}
       </van-tag>
     </van-col>
   </van-row>
   <van-divider content-position="left">选择标签</van-divider>
-  <van-tree-select style="height: 600px;"
-                   v-model:active-id="activeIds"
-                   v-model:main-active-index="activeIndex"
-                   :items="tagList"
+  <van-tree-select
+      v-model:active-id="activeIds"
+      v-model:main-active-index="activeIndex"
+      :items="tagList"
   />
+  <div style="padding: 16px;">
+    <van-button size="normal" type="primary" block @click="doSearchResult()">搜索</van-button>
+  </div>
+  
 </template>
 
 <script setup lang="ts">
 import {ref} from 'vue';
+import router from "../router/router.ts";
 
 // 搜索框的内容
 const searchText = ref('');
@@ -87,7 +92,12 @@ const onCancel = () => {
   tagList.value = originTagList;
 }
 
+/**
+ * 执行搜索后
+ */
+const doSearchResult = () => {
+  router.push({path: '/user/searchResult', query: {tags: activeIds.value}});
+};
 </script>
 <style scoped>
-
 </style>

@@ -4,6 +4,7 @@ import user from "../pages/UserPage.vue";
 import * as VueRouter from "vue-router";
 import SearchPage from "../pages/SearchPage.vue";
 import EditUserPage from "../pages/UserEditPage.vue";
+import SearchResultPage from "../pages/SearchResultPage.vue";
 
 
 const routes = [
@@ -27,7 +28,8 @@ const routes = [
     {
         path: "/User/edit",
         component: EditUserPage,
-    }
+    },
+    {path: '/user/searchResult', title: '用户列表', component: SearchResultPage},
 
 
 ];
