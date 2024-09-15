@@ -2,9 +2,11 @@
  * 用户信息类型
  */
 export type UserType = {
-    username: string;
+    userName: string;
     userAccount: string;
-    avatarUrl?: string;
+    userPassword: string;
+    userAvatar: string;
+    userprofile: string;
     gender: number;
     phone: string;
     email: string;
