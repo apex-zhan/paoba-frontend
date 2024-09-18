@@ -9,7 +9,7 @@
           :rules="[{ editUser, message: '请输入正确内容' }]"
       />
     </van-cell-group>
-    <div style="margin: 16px;">
+    <div style="margin: 16px">
       <van-button round block type="primary" native-type="submit">
         提交
       </van-button>
@@ -17,18 +17,15 @@
   </van-form>
 </template>
 <script setup lang="ts">
-import {ref} from 'vue';
-import {useRouter,useRoute} from 'vue-router';
-import MyAxios from '../plugins/MyAxios';
-import { showToast } from 'vant';
+import {ref} from "vue";
+import {useRouter, useRoute} from "vue-router";
+import MyAxios from "../plugins/MyAxios";
+import {showToast} from "vant";
+import {getCurrentUser} from "../services/UserServices";
 //执行路由信息对象
 const router = useRouter();
 // 当前路由信息的对象
 const route = useRoute();
-
-const onFailed = () => {
-  console.log('failed');
-}
 
 const editUser = ref({
   currentValue: route.query.currentValue as string,
@@ -36,21 +33,28 @@ const editUser = ref({
   editName: route.query.editName as string,
 });
 const onSubmit = async () => {
-  const res = await MyAxios.post('/user/update', {
-    id:'1',
-    [editUser.value.editKey as string]: editUser.value.currentValue,
-  })
-  console.log(res,'用户更新');
-  if (res.code === 0 && res.data > 0) {
-    showToast('修改成功')
-    router.back();
-  } else {
-    showToast('修改失败')
+  const currentUser = await getCurrentUser();
+  console.log(currentUser, "当前用户");
+  if (!currentUser) {
+    console.log("用户未登录");
+    showToast("用户未登录");
+    return router.push({name: "Login"});
   }
-}
+  const res = await MyAxios.post("/user/update", {
+    id: currentUser.id,
+    [editUser.value.editKey as string]: editUser.value.currentValue,
+  });
+  console.log(res, "用户更新");
+  if (res.code === 0 && res.data > 0) {
+    showToast("修改成功");
+    router.push({name: "User"});
+  } else {
+    showToast("修改失败");
+  }
+};
+const onFailed = () => {
+  console.log("failed");
+};
 </script>
 
-
-<style scoped>
-
-</style>
+<style scoped></style>

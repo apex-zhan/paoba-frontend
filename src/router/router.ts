@@ -19,6 +19,8 @@ const routes = [
   },
   {
     path: "/User",
+    title: "用户列表",
+    name: "User",
     component: user,
   },
   {
@@ -31,11 +33,11 @@ const routes = [
   },
   {
     path: "/user/searchResult",
-    title: "用户列表",
     component: SearchResultPage,
   },
   {
     path: "/user/login",
+    name : "Login",
     component: UserLoginPage,
   },
 ];
