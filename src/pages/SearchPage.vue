@@ -36,9 +36,6 @@ import router from "../router/router.ts";
 // 搜索框的内容
 const searchText = ref('');
 
-/**
- * yi
- */
 // 右侧选中项的 id，支持传入数组
 const activeIds = ref([]);
 // 左侧选中项的索引
@@ -69,14 +66,14 @@ const originTagList = [
 let tagList = ref(originTagList);
 /**
  * 搜索过滤
- * @param val
+ * @param 
  */
-const onSearch = (val) => {
+ const onSearch = () => {
   tagList.value = originTagList.map(parentTag => {
-    const childrenTag = [...parentTag.children];
-    const parentTagFilter = {...parentTag};
-    parentTagFilter.children = childrenTag.filter((item) => item.text.includes(searchText.value));
-    return parentTagFilter;
+    const tempChildren = [...parentTag.children];
+    const tempParentTag = {...parentTag};
+    tempParentTag.children = tempChildren.filter(item => item.text.includes(searchText.value));
+    return tempParentTag;
   });
   // todo 实时搜索
 };

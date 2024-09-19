@@ -2,7 +2,7 @@
   <van-card
     v-for="user in userList"
     :desc="user.userProfile"
-    :title="user.username"
+    :title="user.userName"
     :thumb="user.userAvatar"
   >
     <template #tags>
@@ -18,15 +18,15 @@
       <van-button size="small">联系我</van-button>
     </template>
   </van-card>
-   <!-- 搜索提示 -->
-   <van-empty
-      v-if="!userList || userList.length < 1"
-      image="search"
-      description="暂无数据"
-    />
+  <!-- 搜索提示 -->
+  <van-empty
+    v-if="!userList || userList.length < 1"
+    image="search"
+    description="暂无数据"
+  />
 </template>
 
-<script setup >
+<script setup>
 import { onMounted, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import MyAxios from "../plugins/myAxios";
@@ -53,7 +53,7 @@ onMounted(async () => {
   })
     .then(function (response) {
       console.log("/user/search/tags success ", response);
-      return response.data?.data;
+      return response?.data;
     })
     .catch(function (error) {
       console.log("/user/search/tags error", error);

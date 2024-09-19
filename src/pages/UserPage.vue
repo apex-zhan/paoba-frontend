@@ -56,7 +56,7 @@ onMounted(async () => {
   user.value = await getCurrentUser();
   if (!user.value) {
     showToast("请先登录");
-    router.push("/login");
+    router.push("/user/login");
   }
 });
 
