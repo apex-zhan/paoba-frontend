@@ -7,7 +7,7 @@
       :value="user.userName"
       @click="toEdit('昵称', 'userName', user.userName)"
     />
-    <van-cell title="账号" is-link :value="user.userAccount" />
+    <van-cell title="账号"  :value="user.userAccount" />
     <van-cell
       title="头像"
       is-link
@@ -38,7 +38,7 @@
       :value="user.email"
       @click="toEdit('邮箱', 'email', user.email)"
     />
-    <van-cell title="注册时间" is-link :value="user.createTime" />
+    <van-cell title="注册时间"  :value="user.createTime" />
   </template>
 </template>
 

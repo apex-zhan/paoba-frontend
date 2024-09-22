@@ -1,29 +1,5 @@
 <template>
-  <van-card
-    v-for="user in userList"
-    :desc="user.userProfile"
-    :title="user.userName"
-    :thumb="user.userAvatar"
-  >
-    <template #tags>
-      <van-tag
-        plain
-        type="primary"
-        v-for="tag in user.tags"
-        style="margin-right: 8px; margin-top: 8px"
-        >{{ tag }}
-      </van-tag>
-    </template>
-    <template #footer>
-      <van-button size="small">联系我</van-button>
-    </template>
-  </van-card>
-  <!-- 搜索提示 -->
-  <van-empty
-    v-if="!userList || userList.length < 1"
-    image="search"
-    description="暂无数据"
-  />
+  <user-card-list userList="userList" />
 </template>
 
 <script setup>

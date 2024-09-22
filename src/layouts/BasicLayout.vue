@@ -35,4 +35,8 @@ const onChangeLeft = () => router.back();
 const onChangeRight = () => router.push("/search");
 const onChange = (index: string) => showToast(`标签 ${index}`);
 </script>
-<style></style>
+<style scoped>
+#content {
+  padding-bottom: 22px;
+}
+</style>
