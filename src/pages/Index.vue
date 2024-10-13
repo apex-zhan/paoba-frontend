@@ -20,7 +20,7 @@ onMounted(async () => {
   const userListData = await MyAxios.get("/user/recommend", {
     params: {
       pageNum: 1,
-      pageSize: 10,
+      pageSize: 12,
     },
   })
     .then(function (response) {

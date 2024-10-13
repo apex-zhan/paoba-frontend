@@ -6,6 +6,7 @@ import SearchPage from "../pages/SearchPage.vue";
 import EditUserPage from "../pages/UserEditPage.vue";
 import SearchResultPage from "../pages/SearchResultPage.vue";
 import UserLoginPage from "../pages/UserLoginPage.vue";
+import TeamAddPage from "../pages/TeamCreatePage.vue";
 
 const routes = [
   //主页路由
@@ -40,6 +41,11 @@ const routes = [
     name : "Login",
     component: UserLoginPage,
   },
+  {
+    path: "/team/create",
+    component: TeamAddPage,
+  },
+
 ];
 // 创建路由实例并传递 `routes` 配置
 const router = VueRouter.createRouter({
