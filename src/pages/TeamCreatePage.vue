@@ -2,40 +2,43 @@
   <van-form @submit="onSubmit">
     <van-cell-group>
       <van-field
-        v-model="addTeamData.name"
-        name="name"
-        label="队伍名"
-        placeholder="请输入队伍名"
-        :rules="[{ required: true, message: '请输入队伍名' }]"
+          v-model="addTeamData.name"
+          name="name"
+          label="队伍名"
+          placeholder="请输入队伍名"
+          :rules="[{ required: true, message: '请输入队伍名' }]"
       />
       <van-field
-        v-model="addTeamData.description"
-        rows="4"
-        autosize
-        label="队伍描述"
-        type="textarea"
-        placeholder="请输入队伍描述"
+          v-model="addTeamData.description"
+          name="description"
+          rows="2"
+          autosize
+          label="队伍描述:"
+          type="textarea"
+          placeholder="请输入队伍描述"
       />
       <van-field
-        is-link
-        readonly
-        name="datetimePicker"
-        label="过期时间"
-        :placeholder="addTeamData.expireTime ?? '点击选择过期时间'"
-        @click="showPicker = true"
+          v-model="addTeamData.expireTime"
+          is-link
+          readonly
+          name="datetimePicker"
+          label="过期时间"
+          :placeholder="'点击选择过期时间,默认过期时间2050年' ?? addTeamData.expireTime"
+          @click="showPicker = true"
       />
       <van-popup v-model:show="showPicker" position="bottom" round>
         <van-date-picker
-          v-model="addTeamData.expireTime"
-          @confirm="showPicker = false"
-          type="datetime"
-          title="请选择过期时间"
-          :min-date="minDate"
+            @confirm="onConfirm"
+            @cancel="onCancel"
+            type="date"
+            title="请选择过期时间"
+            :min-date="minDate"
+            :max-date="maxDate"
         />
       </van-popup>
       <van-field name="stepper" label="最大人数">
         <template #button>
-          <van-stepper v-model="addTeamData.maxNum" max="50" min="2" />
+          <van-stepper v-model="addTeamData.maxNum" max="50" min="2"/>
         </template>
       </van-field>
       <van-field name="radio" label="队伍状态">
@@ -48,13 +51,13 @@
         </template>
       </van-field>
       <van-field
-        v-if="Number(addTeamData.status) === 2"
-        v-model="addTeamData.password"
-        type="password"
-        name="password"
-        label="密码"
-        placeholder="请输入队伍密码"
-        :rules="[{ required: true, message: '请填写密码' }]"
+          v-if="Number(addTeamData.status) === 2"
+          v-model="addTeamData.password"
+          type="password"
+          name="password"
+          label="密码"
+          placeholder="请输入队伍密码"
+          :rules="[{ required: true, message: '请填写密码' }]"
       />
     </van-cell-group>
     <div style="margin: 16px">
@@ -65,43 +68,56 @@
   </van-form>
 </template>
 <script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import {ref} from "vue";
+import {useRouter} from "vue-router";
+import MyAxios from "../plugins/myAxios.js";
+
 const router = useRouter();
 const showPicker = ref(false);
 const minDate = new Date(2020, 0, 1);
-const maxDate = new Date(2030, 10, 1);
-
-const dojointeam = () => {
-  router.push("/team/join");
-};
+const maxDate = new Date(2050, 10, 1);
 
 const initFormData = {
   name: "zxw",
   description: "awdadwawd",
-  expireTime: ["2023-12-31 23:59:59"],
+  expireTime: null,
   maxNum: 3,
   password: "",
   status: 0,
 };
 
 // 需要用户填写的表单数据
-const addTeamData = ref({ ...initFormData });
+const addTeamData = ref({...initFormData});
 
 const onCancel = () => {
-  showToast("cancel");
-  show.value = false;
+  showPicker.value = false;
 };
-const onConfirm = () => {
-  showToast("confirm");
-  show.value = false;
+const onConfirm = ({selectedValues}) => {
+  addTeamData.value.expireTime = selectedValues.join("-");
+  showPicker.value = false;
+  showSuccessToast("confirm");
 };
+// 提交表单
 const onSubmit = async () => {
+  const postData = {
+    ...addTeamData.value,
+    status: Number(addTeamData.value.status)
+        ? Number(addTeamData.value.status) : 0,
+  }
+  // todo 前端参数校验
   console.log(addTeamData.value);
   //最好把这些请求api单独封装到一个文件
-  const res = await MyAxios.post("/team/add", addTeamData.value).then(
-    (res) => {}
-  );
-};
+  const res = await MyAxios.post("/team/add", postData);
+  console.log(res)
+  if (res?.code === 0 && res.data) {
+    showSuccessToast("创建成功")
+    return router.push({
+      path: "/team",
+      replace: true,
+    });
+  } else {
+    showFailToast(res?.description || "创建失败");
+  }
+}
 </script>
 <style></style>
