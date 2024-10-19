@@ -18,9 +18,9 @@
 </template>
 <script setup lang="ts">
 import {ref} from "vue";
-import {useRouter, useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import MyAxios from "../plugins/MyAxios";
-import {showToast} from "vant";
+import {showFailToast, showSuccessToast, showToast} from "vant";
 import {getCurrentUser} from "../services/UserServices";
 //执行路由信息对象
 const router = useRouter();
@@ -46,10 +46,10 @@ const onSubmit = async () => {
   });
   console.log(res, "用户更新");
   if (res.code === 0 && res.data > 0) {
-    showToast("修改成功");
+    showSuccessToast("修改成功");
     router.push({name: "User"});
   } else {
-    showToast("修改失败");
+    showFailToast("修改失败");
   }
 };
 const onFailed = () => {
