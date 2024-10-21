@@ -22,7 +22,7 @@ import {getCurrentUser} from "../services/UserServices.ts";
 //   id: 1,
 //   username: 'zxw',
 //   userAccount: 'xw',
-//   avatarUrl: 'https://636f-codenav-8grj8px727565176-1256524210.tcb.qcloud.la/img/logo.png',
+//   avatarUrl: '',
 //   gender: '男',
 //   phone: '123112312',
 //   email: '12345@qq.com',

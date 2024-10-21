@@ -1,16 +1,18 @@
 <template>
   <div id="teamPage">
 
-    <van-search v-model="searchText" placeholder="搜索队伍" @search="onSearch" />
+    <van-search v-model="searchText" placeholder="搜索队伍" @search="onSearch"/>
     <van-tabs v-model:active="active" @change="onTabChange">
-      <van-tab title="公开" name="public" />
-      <van-tab title="加密" name="private" />
+      <van-tab title="公开" name="public"/>
+      <van-tab title="加密" name="private"/>
     </van-tabs>
-    <div style="margin-bottom: 16px" />
-    <van-button class="add-button" type="primary" icon="plus" @click="toAddTeam" />
-    <team-card-list :teamList="teamList" />
+    <div style="margin-bottom: 16px"/>
+
+    <team-card-list :teamList="teamList"/>
     <van-empty v-if="teamList?.length < 1" description="数据为空"/>
+
   </div>
+  <van-button class="add-button" type="primary" icon="plus"  @click="toAddTeam"/>
 </template>
 
 <script setup lang="ts">
@@ -70,7 +72,7 @@ const listTeam = async (val = '', status = 0) => {
 }
 
 // 页面加载时只触发一次
-onMounted( () => {
+onMounted(() => {
   listTeam();
 })
 
