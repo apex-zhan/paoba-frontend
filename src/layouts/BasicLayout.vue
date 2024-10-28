@@ -14,7 +14,7 @@
     <router-view></router-view>
   </div>
 
-  <van-tabbar route @change="onChange">
+  <van-tabbar route>
     <van-tabbar-item to="/" icon="home-o" name="index">主页</van-tabbar-item>
     <van-tabbar-item to="/team" icon="friends-o" name="team"
       >队伍
@@ -25,15 +25,12 @@
   </van-tabbar>
 </template>
 <script lang="ts" setup>
-import { ref } from "vue";
-import { showToast } from "vant";
-import { useRouter } from "vue-router";
+import {useRouter} from "vue-router";
 
 const router = useRouter();
 
 const onChangeLeft = () => router.back();
 const onChangeRight = () => router.push("/search");
-const onChange = (index: string) => showToast(`标签 ${index}`);
 </script>
 <style scoped>
 #content {

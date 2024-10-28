@@ -29,27 +29,31 @@
             v-if="team.userId === currentUser?.id"
             size="small"
             plain
-            type="primary"
+            type="danger"
             @click="doDeleteTeam(team.id)"
         >解散队伍
         </van-button>
-        <!--todo 仅加入队伍可见 -->
         <van-button
+            v-if="team.hasJoin && team.userId !== currentUser?.id"
             size="small"
             plain
-            type="primary"
+            type="danger"
             @click="doQuitTeam(team.id)"
         >退出队伍
         </van-button>
         <van-button
+            v-if="team.userId !== currentUser?.id && !team.hasJoin"
             size="small"
             plain
             type="primary"
-            @click="doJoinTeam(team.id)"
+            @click="preJoinTeam(team)"
         >加入队伍
         </van-button>
       </template>
     </van-card>
+    <van-dialog v-model:show="showPasswordDialog" title="请输入密码" show-cancel-button @confirm="doJoinTeam" @cancel="doJoinCancel">
+      <van-field v-model="password" placeholder="请输入密码"/>
+    </van-dialog>
   </div>
 </template>
 
@@ -66,7 +70,9 @@ import {getCurrentUser} from "../services/UserServices.ts";
 interface teamCardListProps {
   teamList: TeamType[];
 }
-
+const JoinTeamId = ref(0);
+const showPasswordDialog = ref(false);
+const password = ref('');
 const router = useRouter();
 const route = useRoute();
 
@@ -76,10 +82,20 @@ const props = withDefaults(defineProps<teamCardListProps>(), {
   teamList: () => [],
 });
 
+const preJoinTeam = (team: TeamType) => {
+  JoinTeamId.value = team.id;
+  if (team.status === 0) {
+    doJoinTeam()
+  } else {
+    showPasswordDialog.value = true;
+  }
+}
 const doJoinTeam = async (id: number) => {
   const res = await MyAxios.post("/team/join", {
     teamId: id,
+    password: password.value,
   });
+
   if (res.code === 0) {
     console.log("加入队伍成功");
     showSuccessToast("加入队伍成功");
@@ -88,6 +104,11 @@ const doJoinTeam = async (id: number) => {
     showFailToast(res?.description || "加入队伍失败");
   }
 };
+
+const doJoinCancel = () => {
+  JoinTeamId.value = 0;
+  password.value = '';
+}
 /**
  * 更新队伍
  *

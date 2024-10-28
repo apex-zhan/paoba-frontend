@@ -10,6 +10,7 @@ import TeamAddPage from "../pages/TeamCreatePage.vue";
 import UserTeamCreatePage from "../pages/UserTeamCreatePage.vue";
 import UserTeamJoinPage from "../pages/UserTeamJoinPage.vue";
 import UserUpdatePage from "../pages/UserUpdatePage.vue";
+import UserContactPage from "../pages/UserContactPage.vue";
 
 const routes = [
     //主页路由
@@ -51,6 +52,8 @@ const routes = [
     {path: '/user/update', title: '更新信息', component: UserUpdatePage},
     {path: '/user/team/join', title: '加入队伍', component: UserTeamJoinPage},
     {path: '/user/team/create', title: '创建队伍', component: UserTeamCreatePage},
+    //联系用户页面
+    {path: '/user/contact', title: '联系用户', component: UserContactPage,}
 
 
 ];

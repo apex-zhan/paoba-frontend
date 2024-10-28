@@ -14,9 +14,6 @@
           >{{ user.tags }}
           </van-tag>
         </template>
-        <template #footer>
-          <van-button size="small">联系我</van-button>
-        </template>
       </van-card>
 
       <van-cell title="当前用户" :value="user?.userName"/>
@@ -39,6 +36,9 @@ const route = useRoute();
 const user = ref();
 console.log(user);
 
+/**
+ * 获取当前用户
+ */
 onMounted(async () => {
   user.value = await getCurrentUser();
   if (!user.value) {
@@ -57,5 +57,7 @@ const toEdit = (editName: string, editKey: string, currentValue: string) => {
     },
   });
 };
+
+const UserContactPage = () => router.push("/user/contact");
 </script>
 <style scoped></style>

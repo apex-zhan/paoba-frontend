@@ -1,8 +1,7 @@
 <template>
   <div id="teamPage">
-
     <van-search v-model="searchText" placeholder="搜索队伍" @search="onSearch"/>
-    <van-tabs v-model:active="active" @change="onTabChange">
+    <van-tabs v-model:active="active" swipeable @change="onTabChange">
       <van-tab title="公开" name="public"/>
       <van-tab title="加密" name="private"/>
     </van-tabs>
@@ -12,7 +11,7 @@
     <van-empty v-if="teamList?.length < 1" description="数据为空"/>
 
   </div>
-  <van-button class="add-button" type="primary" icon="plus"  @click="toAddTeam"/>
+  <van-button class="add-button" type="primary" icon="plus" @click="toAddTeam"/>
 </template>
 
 <script setup lang="ts">
@@ -51,7 +50,7 @@ const toAddTeam = () => {
 const teamList = ref([]);
 
 /**
- * 搜索队伍
+ * 查询队伍列表
  * @param val
  * @param status
  * @returns {Promise<void>}
@@ -85,5 +84,11 @@ const onSearch = (val) => {
 <style scoped>
 #teamPage {
 
+}
+.add-button {
+  border-radius: 50%;
+  position: absolute;
+  margin-top: 40px;
+  right: 20px;
 }
 </style>
