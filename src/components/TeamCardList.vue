@@ -63,7 +63,7 @@ import {teamStatusEnum} from "../constants/team";
 import {defineProps, onMounted, ref, withDefaults} from "vue";
 import MyAxios from "../plugins/myAxios";
 import {showFailToast, showSuccessToast} from "vant";
-import {useRoute, useRouter} from "vue-router";
+import {useRouter} from "vue-router";
 import {currentUser} from "../states/user.ts";
 import {getCurrentUser} from "../services/UserServices.ts";
 
@@ -74,7 +74,6 @@ const JoinTeamId = ref(0);
 const showPasswordDialog = ref(false);
 const password = ref('');
 const router = useRouter();
-const route = useRoute();
 
 const teamimage = "https://img.yzcdn.cn/vant/cat.jpeg";
 // 获取父组件传来的属性teamList

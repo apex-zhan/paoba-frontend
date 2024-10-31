@@ -2,11 +2,11 @@
   <van-form @submit="onSubmit">
     <van-cell-group inset>
       <van-field
-          :label="editUser.editName"
-          v-model="editUser.currentValue"
-          :name="editUser.editKey"
-          :placeholder="`请输入内容'${editUser.editName}`"
-          :rules="[{ editUser, message: '请输入正确内容' }]"
+        :label="editUser.editName"
+        v-model="editUser.currentValue"
+        :name="editUser.editKey"
+        :placeholder="`请输入内容'${editUser.editName}`"
+        :rules="[{ editUser, message: '请输入正确内容' }]"
       />
     </van-cell-group>
     <div style="margin: 16px">
@@ -38,7 +38,7 @@ const onSubmit = async () => {
   if (!currentUser) {
     console.log("用户未登录");
     showToast("用户未登录");
-    return router.push({name: "Login"});
+    return router.push({ name: "Login" });
   }
   const res = await MyAxios.post("/user/update", {
     id: currentUser.id,
@@ -47,13 +47,10 @@ const onSubmit = async () => {
   console.log(res, "用户更新");
   if (res.code === 0 && res.data > 0) {
     showSuccessToast("修改成功");
-    router.push({name: "User"});
+    router.push({ name: "User" });
   } else {
     showFailToast("修改失败");
   }
-};
-const onFailed = () => {
-  console.log("failed");
 };
 </script>
 

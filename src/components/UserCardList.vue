@@ -1,12 +1,24 @@
 <template>
-  <van-skeleton title avatar :row="3" :loading="props.loading" v-for="user in props.userList">
+  <van-skeleton
+    title
+    avatar
+    :row="3"
+    :loading="props.loading"
+    v-for="user in props.userList"
+  >
     <van-card
-        :desc="user.userprofile"
-        :title="`${user.userName}`"
-        :thumb="user.userAvatar"
+      :desc="`${user.userProfile}`"
+      :title="`${user.userName}`"
+      :thumb="user.userAvatar"
+      @click=""
     >
       <template #tags>
-        <van-tag plain type="primary" v-for="tag in user.tags" style="margin-right: 8px; margin-top: 8px">
+        <van-tag
+          plain
+          type="primary"
+          v-for="tag in user.tags"
+          style="margin-right: 8px; margin-top: 8px"
+        >
           {{ tag }}
         </van-tag>
       </template>
@@ -30,9 +42,6 @@ const props = withDefaults(defineProps<UserCardListProps>(), {
   // @ts-ignore
   userList: [] as UserType[],
 });
-
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -2,24 +2,27 @@
   <template v-if="user">
     <van-space direction="vertical" fill>
       <van-card
-          :desc="user.userProfile"
-          :title="user.userName"
-          :thumb="user.userAvatar"
+        :desc="user.userProfile"
+        :title="user.userName"
+        :thumb="user.userAvatar"
       >
         <template #tags>
           <van-tag
-              plain
-              type="primary"
-              style="margin-right: 8px; margin-top: 8px"
-          >{{ user.tags }}
+            plain
+            type="primary"
+            style="margin-right: 8px; margin-top: 8px"
+            >{{ user.tags }}
           </van-tag>
         </template>
       </van-card>
 
-      <van-cell title="当前用户" :value="user?.userName"/>
-      <van-cell title="修改信息" is-link to="/user/update"/>
-      <van-cell title="我创建的队伍" is-link to="/user/team/create"/>
-      <van-cell title="我加入的队伍" is-link to="/user/team/join"/>
+      <van-cell title="当前用户" :value="user?.userName" />
+      <van-cell title="修改信息" is-link to="/user/update" />
+      <van-cell title="我创建的队伍" is-link to="/user/team/create" />
+      <van-cell title="我加入的队伍" is-link to="/user/team/join" />
+      <van-button type="primary" round block @click="dologout()">
+        退出登录
+      </van-button>
     </van-space>
   </template>
 </template>
@@ -55,6 +58,14 @@ const toEdit = (editName: string, editKey: string, currentValue: string) => {
       editKey,
       currentValue,
     },
+  });
+};
+/**
+ * 退出登录
+ */
+const dologout = () => {
+  router.replace({
+    path: "/user/login",
   });
 };
 

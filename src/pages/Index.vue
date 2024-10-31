@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import {ref, watchEffect} from 'vue';
-import myAxios from "../plugins/myAxios";
+import myAxios from "../plugins/myAxios.js";
 import {showFailToast} from "vant";
 import UserCardList from "../components/UserCardList.vue";
 import {UserType} from "../models/user";

@@ -1,13 +1,17 @@
 <template>
   <van-nav-bar
-    title="泡吧"
-    left-text="返回"
-    left-arrow
-    @click-left="onChangeLeft"
-    @click-right="onChangeRight"
+      class="nav-bar"
+      :title="泡吧"
+      fixed
+      placeholder
+      safe-area-inset-top
+      left-text="返回"
+      left-arrow
+      @click-left="onChangeLeft"
+      @click-right="onChangeRight"
   >
     <template #right>
-      <van-icon name="search" size="18" />
+      <van-icon name="search" size="18"/>
     </template>
   </van-nav-bar>
   <div id="content">
@@ -17,10 +21,10 @@
   <van-tabbar route>
     <van-tabbar-item to="/" icon="home-o" name="index">主页</van-tabbar-item>
     <van-tabbar-item to="/team" icon="friends-o" name="team"
-      >队伍
+    >队伍
     </van-tabbar-item>
     <van-tabbar-item to="/user" icon="setting-o" name="user"
-      >个人
+    >个人
     </van-tabbar-item>
   </van-tabbar>
 </template>
@@ -28,6 +32,7 @@
 import {useRouter} from "vue-router";
 
 const router = useRouter();
+console.log(router);
 
 const onChangeLeft = () => router.back();
 const onChangeRight = () => router.push("/search");

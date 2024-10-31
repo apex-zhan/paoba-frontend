@@ -43,7 +43,7 @@ const onTabChange = (name) => {
 // 跳转到创建队伍页
 const toAddTeam = () => {
   router.push({
-    path: "/team/create"
+    path: "/team/add"
   })
 }
 
