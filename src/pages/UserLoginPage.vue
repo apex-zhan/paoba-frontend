@@ -2,33 +2,36 @@
   <van-form @submit="onSubmit">
     <van-cell-group>
       <van-field
-        v-model="userAccount"
-        required
-        clearable
-        label="用户账号"
-        placeholder="请输入用户账号"
-        :rules="[{ required: true, message: '请输入用户账号' }]"
+          v-model="userAccount"
+          :rules="[{ required: true, message: '请输入用户账号' }]"
+          clearable
+          label="用户账号"
+          placeholder="请输入用户账号"
+          required
       />
 
       <van-field
-        v-model="userPassword"
-        type="password"
-        label="密码"
-        placeholder="请输入密码"
-        required
-        :rules="[{ required: true, message: '请输入密码' }]"
+          v-model="userPassword"
+          :rules="[{ required: true, message: '请输入密码' }]"
+          label="密码"
+          placeholder="请输入密码"
+          required
+          type="password"
       />
     </van-cell-group>
     <div style="padding: 12px">
-      <van-button size="large" round block type="primary" native-type="submit">提交</van-button>
+      <van-button block native-type="submit" round size="large" type="primary"
+      >提交
+      </van-button
+      >
     </div>
   </van-form>
 </template>
 
 <script setup lang="ts">
-import { useRouter} from "vue-router";
-import { showToast } from "vant";
-import { ref } from "vue";
+import {useRouter} from "vue-router";
+import {showFailToast, showSuccessToast} from "vant";
+import {ref} from "vue";
 import MyAxios from "../plugins/myAxios";
 //执行路由信息对象
 const router = useRouter();
@@ -41,10 +44,9 @@ const onSubmit = async () => {
     userPassword: userPassword.value,
   });
   if (res.code === 0 && res.data) {
-    showToast("登录成功");
+    showSuccessToast("登录成功");
     router.replace("/");
-  } else 
-  showToast("登录失败");
+  } else showFailToast("登录失败");
 };
 </script>
 

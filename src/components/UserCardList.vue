@@ -10,7 +10,6 @@
       :desc="`${user.userProfile}`"
       :title="`${user.userName}`"
       :thumb="user.userAvatar"
-      @click=""
     >
       <template #tags>
         <van-tag
@@ -39,7 +38,6 @@ interface UserCardListProps {
 
 const props = withDefaults(defineProps<UserCardListProps>(), {
   loading: true,
-  // @ts-ignore
   userList: [] as UserType[],
 });
 </script>

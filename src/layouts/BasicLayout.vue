@@ -1,10 +1,7 @@
 <template>
   <van-nav-bar
-      class="nav-bar"
-      :title="泡吧"
-      fixed
-      placeholder
       safe-area-inset-top
+      :title="name"
       left-text="返回"
       left-arrow
       @click-left="onChangeLeft"
@@ -18,7 +15,7 @@
     <router-view></router-view>
   </div>
 
-  <van-tabbar route>
+  <van-tabbar route safe-area-inset-bottom @change="onChange">
     <van-tabbar-item to="/" icon="home-o" name="index">主页</van-tabbar-item>
     <van-tabbar-item to="/team" icon="friends-o" name="team"
     >队伍
@@ -30,9 +27,24 @@
 </template>
 <script lang="ts" setup>
 import {useRouter} from "vue-router";
+import {ref} from "vue";
 
 const router = useRouter();
-console.log(router);
+const DEFAULT_TITLE = "泡友匹配";
+const name = ref(DEFAULT_TITLE);
+
+console.log(router.getRoutes());
+/**
+ * 路由切换时，根据路由的title来设置标题
+ */
+router.beforeEach((to, from) => {
+  const topath = to.path;
+  // .find 查找数组中满足特定条件的第一个元素
+  const matchedRoute = router.getRoutes().find((item) => {
+    return item.path === topath;
+  });
+  name.value = matchedRoute?.name ?? DEFAULT_TITLE;
+});
 
 const onChangeLeft = () => router.back();
 const onChangeRight = () => router.push("/search");

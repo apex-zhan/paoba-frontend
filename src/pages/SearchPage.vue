@@ -9,7 +9,9 @@
     />
   </form>
   <van-divider content-position="left">已选标签</van-divider>
-  <van-row v-if="activeIds.length === 0 ">请选择标签</van-row>
+  <van-row v-if="activeIds.length === 0 " style="font-size: 16px; color: #969799; text-align: center; padding: 16px">
+    请选择标签
+  </van-row>
   <van-row gutter="16">
     <van-col v-for="tag in activeIds">
       <van-tag closeable size="normal" type="primary" @close=doclose(tag)>
@@ -24,9 +26,9 @@
       :items="tagList"
   />
   <div style="padding: 16px;">
-    <van-button size="normal" type="primary" block @click="doSearchResult()">搜索</van-button>
+    <van-button block round size="normal" type="primary" @click="doSearchResult()">搜索</van-button>
   </div>
-  
+
 </template>
 
 <script setup lang="ts">
@@ -66,9 +68,9 @@ const originTagList = [
 let tagList = ref(originTagList);
 /**
  * 搜索过滤
- * @param 
+ * @param
  */
- const onSearch = () => {
+const onSearch = () => {
   tagList.value = originTagList.map(parentTag => {
     const tempChildren = [...parentTag.children];
     const tempParentTag = {...parentTag};

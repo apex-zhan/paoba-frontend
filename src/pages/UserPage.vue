@@ -2,16 +2,16 @@
   <template v-if="user">
     <van-space direction="vertical" fill>
       <van-card
-        :desc="user.userProfile"
-        :title="user.userName"
-        :thumb="user.userAvatar"
+          :desc="user.userProfile"
+          :thumb="user.userAvatar"
+          :title="user.userName"
       >
         <template #tags>
           <van-tag
-            plain
-            type="primary"
-            style="margin-right: 8px; margin-top: 8px"
-            >{{ user.tags }}
+              plain
+              style="margin-right: 8px; margin-top: 8px"
+              type="primary"
+          >{{ user.tags }}
           </van-tag>
         </template>
       </van-card>
@@ -20,7 +20,7 @@
       <van-cell title="修改信息" is-link to="/user/update" />
       <van-cell title="我创建的队伍" is-link to="/user/team/create" />
       <van-cell title="我加入的队伍" is-link to="/user/team/join" />
-      <van-button type="primary" round block @click="dologout()">
+      <van-button block round style="margin: auto;" type="primary" @click="dologout()">
         退出登录
       </van-button>
     </van-space>

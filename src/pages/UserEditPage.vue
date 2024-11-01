@@ -2,11 +2,11 @@
   <van-form @submit="onSubmit">
     <van-cell-group inset>
       <van-field
-        :label="editUser.editName"
-        v-model="editUser.currentValue"
-        :name="editUser.editKey"
-        :placeholder="`请输入内容'${editUser.editName}`"
-        :rules="[{ editUser, message: '请输入正确内容' }]"
+          v-model="editUser.currentValue"
+          :label="editUser.editName"
+          :name="editUser.editKey"
+          :placeholder="`请输入内容'${editUser.editName}`"
+          :rules="[{ editUser, message: '请输入正确内容' }]"
       />
     </van-cell-group>
     <div style="margin: 16px">
@@ -51,6 +51,10 @@ const onSubmit = async () => {
   } else {
     showFailToast("修改失败");
   }
+};
+const onFailed = () => {
+  console.log("failed");
+
 };
 </script>
 

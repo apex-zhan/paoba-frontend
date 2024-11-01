@@ -41,6 +41,7 @@
             @click="doQuitTeam(team.id)"
         >退出队伍
         </van-button>
+
         <van-button
             v-if="team.userId !== currentUser?.id && !team.hasJoin"
             size="small"
@@ -51,7 +52,13 @@
         </van-button>
       </template>
     </van-card>
-    <van-dialog v-model:show="showPasswordDialog" title="请输入密码" show-cancel-button @confirm="doJoinTeam" @cancel="doJoinCancel">
+    <van-dialog
+        v-model:show="showPasswordDialog"
+        show-cancel-button
+        title="请输入密码"
+        @cancel="doJoinCancel"
+        @confirm="doJoinTeam"
+    >
       <van-field v-model="password" placeholder="请输入密码"/>
     </van-dialog>
   </div>
@@ -70,9 +77,10 @@ import {getCurrentUser} from "../services/UserServices.ts";
 interface teamCardListProps {
   teamList: TeamType[];
 }
+
 const JoinTeamId = ref(0);
 const showPasswordDialog = ref(false);
-const password = ref('');
+const password = ref("");
 const router = useRouter();
 
 const teamimage = "https://img.yzcdn.cn/vant/cat.jpeg";
@@ -81,14 +89,18 @@ const props = withDefaults(defineProps<teamCardListProps>(), {
   teamList: () => [],
 });
 
+/**
+ *
+ * @param team
+ */
 const preJoinTeam = (team: TeamType) => {
   JoinTeamId.value = team.id;
   if (team.status === 0) {
-    doJoinTeam()
+    doJoinTeam(team.id);
   } else {
     showPasswordDialog.value = true;
   }
-}
+};
 const doJoinTeam = async (id: number) => {
   const res = await MyAxios.post("/team/join", {
     teamId: id,
@@ -106,8 +118,8 @@ const doJoinTeam = async (id: number) => {
 
 const doJoinCancel = () => {
   JoinTeamId.value = 0;
-  password.value = '';
-}
+  password.value = "";
+};
 /**
  * 更新队伍
  *
@@ -135,7 +147,7 @@ const doDeleteTeam = async (id: number) => {
     console.log("解散队伍失败");
     showFailToast(res?.description || "解散队伍失败");
   }
-}
+};
 /**
  * 退出队伍
  */
@@ -143,6 +155,7 @@ const doQuitTeam = async (id: number) => {
   const res = await MyAxios.post("/team/quit", {
     teamId: id,
   });
+
   if (res.code === 0) {
     console.log("退出队伍成功");
     showSuccessToast("退出队伍成功");
@@ -150,8 +163,7 @@ const doQuitTeam = async (id: number) => {
     console.log("退出队伍失败");
     showFailToast(res?.description || "退出队伍失败");
   }
-}
-
+};
 
 onMounted(async () => {
   currentUser.value = await getCurrentUser();
