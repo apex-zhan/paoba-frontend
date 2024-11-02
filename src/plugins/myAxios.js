@@ -1,7 +1,8 @@
 import axios from 'axios'
 
+const isDev = process.env.NODE_ENV === 'development';
 const MyAxios = axios.create({
-    baseURL: 'http://localhost:8081/api/',
+    baseURL: isDev ? 'http://localhost:8081/api/' : "线上接口",
 });
 // 允许携带cookie
 MyAxios.defaults.withCredentials = true;
