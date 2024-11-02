@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import {ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
-import MyAxios from "../plugins/MyAxios";
+import MyAxios from '../plugins/myAxios.js';
 import {showFailToast, showSuccessToast, showToast} from "vant";
 import {getCurrentUser} from "../services/UserServices";
 //执行路由信息对象
