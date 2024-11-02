@@ -4,6 +4,7 @@
         v-for="team in props.teamList"
         :desc="`${team.description}`"
         :title="`${team.name}`"
+
         :thumb="`${teamimage}`"
     >
       <template #tags>
@@ -12,7 +13,7 @@
         </van-tag>
       </template>
       <template #bottom>
-        <div>{{ "最大人数: " + `${team.maxNum}` }}</div>
+        <div>{{ "队伍人数: " + `${team.hasJoinNum} / ${team.maxNum}` }}</div>
         <div>{{ "创建时间： " + `${team.createTime}` }}</div>
         <div>{{ "过期时间： " + `${team.expireTime}` }}</div>
       </template>
@@ -47,7 +48,7 @@
             size="small"
             plain
             type="primary"
-            @click="preJoinTeam(team)"
+            @click="preJoinTeam"
         >加入队伍
         </van-button>
       </template>
@@ -101,20 +102,24 @@ const preJoinTeam = (team: TeamType) => {
     showPasswordDialog.value = true;
   }
 };
-const doJoinTeam = async (id: number) => {
-  const res = await MyAxios.post("/team/join", {
-    teamId: id,
-    password: password.value,
-  });
-
-  if (res.code === 0) {
-    console.log("加入队伍成功");
-    showSuccessToast("加入队伍成功");
-  } else {
-    console.log("加入队伍失败");
-    showFailToast(res?.description || "加入队伍失败");
+/**
+ * 加入队伍
+ */
+const doJoinTeam = async () => {
+  if (!JoinTeamId.value) {
+    return;
   }
-};
+  const res = await MyAxios.post('/team/join', {
+    teamId: JoinTeamId.value,
+    password: password.value
+  });
+  if (res?.code === 0) {
+    showSuccessToast('加入成功');
+    doJoinCancel();
+  } else {
+    showFailToast('加入失败' + (res.description ? `，${res.description}` : ''));
+  }
+}
 
 const doJoinCancel = () => {
   JoinTeamId.value = 0;
